@@ -141,8 +141,14 @@ impl TypePathType {
                 match ident.as_str() {
                     "Option" => parse_quote!(::core::option::Option),
                     "Result" => parse_quote!(::core::result::Result),
-                    "Cow" => parse_quote!(::std::borrow::Cow),
+                    "Cow" => parse_quote!(::core::borrow::Cow),
+                    #[cfg(not(feature = "generates-std"))]
+                    "BTreeMap" => parse_quote!(::alloc::collections::BTreeMap),
+                    #[cfg(not(feature = "generates-std"))]
+                    "BTreeSet" => parse_quote!(::alloc::collections::BTreeSet),
+                    #[cfg(feature = "generates-std")]
                     "BTreeMap" => parse_quote!(::std::collections::BTreeMap),
+                    #[cfg(feature = "generates-std")]
                     "BTreeSet" => parse_quote!(::std::collections::BTreeSet),
                     "Range" => parse_quote!(::core::ops::Range),
                     "RangeInclusive" => parse_quote!(::core::ops::RangeInclusive),
@@ -213,6 +219,9 @@ impl TypePathType {
                 syn::Type::Path(path)
             }
             TypePathType::Vec { of } => {
+                #[cfg(not(feature = "generates-std"))]
+                let type_path = parse_quote! { ::alloc::vec::Vec<#of> };
+                #[cfg(feature = "generates-std")]
                 let type_path = parse_quote! { ::std::vec::Vec<#of> };
                 syn::Type::Path(type_path)
             }
@@ -227,6 +236,9 @@ impl TypePathType {
             TypePathType::Primitive { def } => syn::Type::Path(match def {
                 TypeDefPrimitive::Bool => parse_quote!(::core::primitive::bool),
                 TypeDefPrimitive::Char => parse_quote!(::core::primitive::char),
+                #[cfg(not(feature = "generates-std"))]
+                TypeDefPrimitive::Str => parse_quote!(::alloc::string::String),
+                #[cfg(feature = "generates-std")]
                 TypeDefPrimitive::Str => parse_quote!(::std::string::String),
                 TypeDefPrimitive::U8 => parse_quote!(::core::primitive::u8),
                 TypeDefPrimitive::U16 => parse_quote!(::core::primitive::u16),

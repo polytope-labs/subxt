@@ -12,6 +12,12 @@ documentation = "https://docs.rs/subxt-codegen"
 homepage.workspace = true
 description = "Generate an API for interacting with a substrate node from FRAME metadata"
 
+[features]
+default = ["generates-std"]
+
+# For allocating types, generated type paths will be `std::foo` rather than `alloc::foo`
+generates-std = []
+
 [dependencies]
 codec = { package = "parity-scale-codec", workspace = true, features = ["derive"] }
 frame-metadata = { workspace = true }
