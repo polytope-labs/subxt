@@ -133,7 +133,6 @@ impl TypePathType {
         params: Vec<TypePath>,
     ) -> Self {
         let path_segments = &*path.segments;
-
         let path: syn::Path = match path_segments {
             [] => panic!("Type has no ident"),
             [ident] => {
@@ -158,6 +157,7 @@ impl TypePathType {
                     "NonZeroU128" => parse_quote!(::core::num::NonZeroU128),
                     "NonZeroIsize" => parse_quote!(::core::num::NonZeroIsize),
                     "NonZeroUsize" => parse_quote!(::core::num::NonZeroUsize),
+                    "BinaryHeap" => parse_quote!(::std::vec::Vec),
                     ident => panic!("Unknown prelude type '{ident}'"),
                 }
             }
