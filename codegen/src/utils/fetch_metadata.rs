@@ -6,8 +6,8 @@ use crate::error::FetchMetadataError;
 use codec::{Decode, Encode};
 use jsonrpsee::{
     async_client::ClientBuilder,
-    client_transport::ws::{Uri, WsTransportClientBuilder},
-    core::{client::ClientT, Error},
+    client_transport::ws::{Uri, Url, WsTransportClientBuilder},
+    core::{client::ClientT, ClientError},
     http_client::HttpClientBuilder,
     rpc_params,
 };
@@ -101,13 +101,13 @@ async fn fetch_metadata_ws(
     version: MetadataVersion,
 ) -> Result<Vec<u8>, FetchMetadataError> {
     let (sender, receiver) = WsTransportClientBuilder::default()
-        .build(url.to_string().parse::<Uri>().unwrap())
+        .build(url.to_string().parse::<Url>().unwrap())
         .await
-        .map_err(|e| Error::Transport(e.into()))?;
+        .map_err(|e| ClientError::Transport(e.into()))?;
 
     let client = ClientBuilder::default()
         .request_timeout(Duration::from_secs(180))
-        .max_notifs_per_subscription(4096)
+        .max_buffer_capacity_per_subscription(4096)
         .build_with_tokio(sender, receiver);
 
     fetch_metadata(client, version).await

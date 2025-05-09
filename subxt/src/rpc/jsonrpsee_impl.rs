@@ -9,7 +9,7 @@ use jsonrpsee::{
     core::{
         client::{Client, ClientT, SubscriptionClientT, SubscriptionKind},
         traits::ToRpcParams,
-        Error as JsonRpseeError,
+        ClientError as JsonRpseeError,
     },
     types::SubscriptionId,
 };
@@ -18,7 +18,7 @@ use serde_json::value::RawValue;
 struct Params(Option<Box<RawValue>>);
 
 impl ToRpcParams for Params {
-    fn to_rpc_params(self) -> Result<Option<Box<RawValue>>, JsonRpseeError> {
+    fn to_rpc_params(self) -> Result<Option<Box<RawValue>>, serde_json::Error> {
         Ok(self.0)
     }
 }

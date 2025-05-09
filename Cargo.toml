@@ -54,9 +54,9 @@ getrandom = { version = "0.2", default-features = false }
 hex = "0.4.3"
 heck = "0.4.1"
 impl-serde = { version = "0.4.0" }
-jsonrpsee = { version = "0.16" }
+jsonrpsee = { version = "0.24" }
 pretty_assertions = "1.4.0"
-primitive-types = { version = "0.12.1", default-features = false, features = ["codec", "scale-info", "serde"] }
+primitive-types = { version = "0.13.1", default-features = false, features = ["codec", "scale-info", "serde"] }
 proc-macro-error = "1.0.4"
 proc-macro2 = "1.0.66"
 quote = "1.0.31"
@@ -96,11 +96,11 @@ instant = { version = "0.1.12", default-features = false }
 tokio-util = "0.7.8"
 
 # Substrate crates:
-sp-core = { version = "21.0.0", default-features = false }
-sp-core-hashing = "9.0.0"
-sp-runtime = "24.0.0"
-sp-keyring = "24.0.0"
-sp-version = "22.0.0"
+sp-core = { version = "35.0.0", default-features = false }
+sp-core-hashing = { version = "0.1.0", package = "sp-crypto-hashing"}
+sp-runtime = "40.0.0"
+sp-keyring = "40.0.0"
+sp-version = "38.0.0"
 
 # Subxt workspace crates:
 subxt = { version = "0.30.1", path = "subxt", default-features = false }

@@ -88,7 +88,7 @@ pub enum FetchMetadataError {
     #[error("Cannot scale encode/decode value: {0}")]
     CodecError(#[from] codec::Error),
     #[error("Request error: {0}")]
-    RequestError(#[from] jsonrpsee::core::Error),
+    RequestError(#[from] jsonrpsee::core::ClientError),
     #[error("'{0}' not supported, supported URI schemes are http, https, ws or wss.")]
     InvalidScheme(String),
     #[error("Other error: {0}")]
