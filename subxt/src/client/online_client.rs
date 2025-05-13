@@ -477,17 +477,17 @@ mod jsonrpsee_helpers {
         client_transport::web,
         core::{
             client::{Client, ClientBuilder},
-            Error,
+            ClientError,
         },
     };
 
     /// Build web RPC client from URL
-    pub async fn client(url: &str) -> Result<Client, Error> {
+    pub async fn client(url: &str) -> Result<Client, ClientError> {
         let (sender, receiver) = web::connect(url)
             .await
-            .map_err(|e| Error::Transport(e.into()))?;
+            .map_err(|e| ClientError::Transport(e.into()))?;
         Ok(ClientBuilder::default()
-            .max_notifs_per_subscription(4096)
+            .max_buffer_capacity_per_subscription(4096)
             .build_with_wasm(sender, receiver))
     }
 }

@@ -338,7 +338,7 @@ fn validate_storage(
     hash: [u8; 32],
 ) -> Result<(), Error> {
     let Some(expected_hash) = pallet.storage_hash(storage_name) else {
-        return Err(MetadataError::IncompatibleCodegen.into())
+        return Err(MetadataError::IncompatibleCodegen.into());
     };
     if expected_hash != hash {
         return Err(MetadataError::IncompatibleCodegen.into());

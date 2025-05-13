@@ -811,8 +811,12 @@ mod tests {
         let a_hash2 = get_type_hash(&registry, a_type_id, &mut cache);
         let b_hash = get_type_hash(&registry, b_type_id, &mut cache);
 
-        let CachedHash::Hash(a_cache_hash) = cache[&a_type_id] else { panic!() };
-        let CachedHash::Hash(b_cache_hash) = cache[&b_type_id] else { panic!() };
+        let CachedHash::Hash(a_cache_hash) = cache[&a_type_id] else {
+            panic!()
+        };
+        let CachedHash::Hash(b_cache_hash) = cache[&b_type_id] else {
+            panic!()
+        };
 
         assert_eq!(a_hash, a_cache_hash);
         assert_eq!(b_hash, b_cache_hash);
