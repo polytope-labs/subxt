@@ -96,11 +96,11 @@ instant = { version = "0.1.12", default-features = false }
 tokio-util = "0.7.8"
 
 # Substrate crates:
-sp-core = { version = "35.0.0", default-features = false }
+sp-core = { version = "36.1.0", default-features = false }
 sp-core-hashing = { version = "0.1.0", package = "sp-crypto-hashing"}
-sp-runtime = "40.0.0"
-sp-keyring = "40.0.0"
-sp-version = "38.0.0"
+sp-runtime = "41.1.0"
+sp-keyring = "41.0.0"
+sp-version = "39.0.0"
 
 # Subxt workspace crates:
 subxt = { version = "0.30.1", path = "subxt", default-features = false }
